@@ -1,0 +1,28 @@
+{
+  "name": "patch-profile",
+  "version": "1.0.0",
+  "description": "A simple profile editing page for patch-* family apps",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mixmix/patch-profile.git"
+  },
+  "keywords": [
+    "patchcore",
+    "depject",
+    "profile"
+  ],
+  "author": "mixmix",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/mixmix/patch-profile/issues"
+  },
+  "homepage": "https://github.com/mixmix/patch-profile#readme",
+  "dependencies": {
+    "depnest": "^1.3.0",
+    "mutant": "^3.21.2"
+  }
+}
