@@ -4,19 +4,16 @@ const hyperfile = require('hyperfile')
 const hypercrop = require('hypercrop')
 const hyperlightbox = require('hyperlightbox')
 const pull = require('pull-stream')
-const { h, Value, computed, map, when } = require('mutant')
-const hClassic = require('hyperscript')
+const { h, Value, computed, when } = require('mutant')
 
 exports.gives = nest('about.page.edit')
 
 exports.needs = nest({
-  // 'about.obs.groupedValues': 'first',
   'about.html.image': 'first',
-  // 'about.obs.image': 'first',
   'about.obs.name': 'first',
   'blob.sync.url': 'first',
   'message.async.publish': 'first',
-  'sbot.async.addBlob': 'first',
+  'sbot.async.addBlob': 'first'
 })
 
 const DEFAULT_LABELS = {
@@ -29,13 +26,11 @@ const DEFAULT_LABELS = {
 }
 
 exports.create = (api) => {
-  var _settings
-
   return nest({
-    'about.page.edit': editPage,
+    'about.page.edit': editPage
   })
 
-  function editPage ({ feed, labels={} }, callback) {
+  function editPage ({ feed, labels = {} }, callback) {
     const { name, avatar, instructionCrop, okay, save, cancel } = Object.assign({}, DEFAULT_LABELS, labels)
 
     const nameCurrent = api.about.obs.name(feed)
@@ -44,8 +39,8 @@ exports.create = (api) => {
     var avatarCurrent = api.about.html.image(feed)
     const avatarNewData = Value()
     const avatarToDisplay = computed(avatarNewData, data => {
-      return data 
-        ? h('img', { src: api.blob.sync.url(data.link) }) 
+      return data
+        ? h('img', { src: api.blob.sync.url(data.link) })
         : avatarCurrent
     })
 
@@ -63,16 +58,16 @@ exports.create = (api) => {
       h('section -avatar', [
         lightbox,
         h('header', avatar),
-            
+
         h('div.input', [
           avatarToDisplay,
-          hyperfile.asDataURL(dataUrlCallback),
+          hyperfile.asDataURL(dataUrlCallback)
         ])
       ]),
       h('div.actions', [
         h('Button', { 'ev-click': () => callback(null, false) }, cancel),
-        h('Button -primary', 
-          { 
+        h('Button -primary',
+          {
             'ev-click': handleSave,
             className: when(canSave, '', '-disabled')
           }
@@ -86,7 +81,7 @@ exports.create = (api) => {
         type: 'about',
         about: feed,
         name: nameNew(),
-        image: avatarNewData(),
+        image: avatarNewData()
       }
 
       if (!msg.name) delete msg.name
@@ -122,7 +117,7 @@ exports.create = (api) => {
       const cropEl = Crop(data, cropCallback)
       lightbox.show(cropEl)
     }
-    
+
     function Crop (data, cb) {
       var img = h('img', {src: data})
 
@@ -134,7 +129,7 @@ exports.create = (api) => {
       function waitForImg () {
         // WEIRDNESS - if you invoke hypecrop before img is ready,
         // the canvas instantiates and draws nothing
-        
+
         if (!img.height && !img.width) {
           return window.setTimeout(waitForImg, 100)
         }
@@ -154,4 +149,3 @@ exports.create = (api) => {
     }
   }
 }
-

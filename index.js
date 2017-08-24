@@ -6,4 +6,3 @@ module.exports = {
     'styles.mcss': require('./styles/mcss')
   })
 }
-
