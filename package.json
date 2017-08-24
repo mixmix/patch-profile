@@ -27,7 +27,6 @@
     "hypercrop": "^1.1.0",
     "hyperfile": "^2.0.0",
     "hyperlightbox": "^1.0.0",
-    "hyperscript": "^2.0.2",
     "mutant": "^3.21.2",
     "pull-stream": "^3.6.0"
   }
