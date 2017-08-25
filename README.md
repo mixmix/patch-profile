@@ -2,7 +2,7 @@
 
 A module for editing your (or other people's) profiles in patch-* family apps. Edits names or images.
 
-You'll need to understand [depject](https://github.com/depject/depject) (a module for a different way of managing dependency injection), and for hte example below, [depnest](https://github.com/depject/depnest) - a lazy way to write nested objects quickly.
+You'll need to understand [depject](https://github.com/depject/depject) (a module for a different way of managing dependency injection), and for the example below, [depnest](https://github.com/depject/depnest) - a lazy way to write nested objects quickly.
 
 ## Example
 
@@ -50,7 +50,7 @@ exports.create = (api) => {
 
 Where `target` is of the form `{ feed='@....', labels=object }`
 
-`labels` (optional) can be used to over-ride labels for translations: `{ name, image, cancel, save }`
+`labels` (optional) can be used to override labels for translations: `{ name, image, cancel, save }`
 `callback` (optional) will be called after a user confirms or cancels changes. It has signature `(err, didEdit=boolean)`, where `didEdit == true` if an edit was published.
 
 
