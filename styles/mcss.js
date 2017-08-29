@@ -28,7 +28,23 @@ PatchProfileEdit {
     }
 
     -avatar {
-      $LightBox
+      div.lightbox {
+        div.lightbox__content {
+          div.cropper {
+            div.PatchProfileCrop {}
+            div.background {
+              position: fixed
+              z-index: 98
+              top: 0
+              left: 0
+
+              width: 100%
+              height: 100%
+              background-color: rgba(0, 0, 0, 0.5)
+            }
+          }
+        }
+      }
 
       div.input {
         $PatchProfileImageSize
@@ -93,6 +109,21 @@ PatchProfileEdit {
 }
 
 PatchProfileCrop {
+  background: #f5f5f5
+
+  position: absolute
+  z-index: 99
+  top: 0
+  left: 0
+  right: 0
+
+  overflow: auto
+  max-width: 100%
+  padding: 1rem
+  margin: auto
+  border: 1px solid #eee
+  border-radius: .2em
+
   header {
     font-weight: 600
     margin-bottom: .5rem
@@ -115,25 +146,6 @@ $PatchProfileImageSize {
   height: 20rem
 }
 
-$LightBox {
-  div.lightbox {
-    background: #f5f5f5
-
-    position: absolute
-    top: 0
-    left: 0
-    right: 0
-
-    overflow: auto
-    max-width: 100%
-    padding: 1rem
-    margin: auto
-    z-index: 2
-    border: 1px solid #eee
-    border-radius: .2em
-  }
-
-}
 `
 
 exports.create = (api) => {

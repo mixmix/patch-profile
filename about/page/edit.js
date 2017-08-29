@@ -121,10 +121,14 @@ exports.create = (api) => {
     function Crop (data, cb) {
       var img = h('img', {src: data})
 
-      var crop = h('div.hack')
+      var crop = h('div')
+
       waitForImg()
 
-      return crop
+      return h('div.cropper', [
+        crop,
+        h('div.background')
+      ])
 
       function waitForImg () {
         // WEIRDNESS - if you invoke hypecrop before img is ready,
@@ -135,7 +139,7 @@ exports.create = (api) => {
         }
 
         var canvas = hypercrop(img)
-        crop.appendChild(
+        crop = (
           h('PatchProfileCrop', [
             h('header', instructionCrop),
             canvas,
