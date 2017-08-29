@@ -7,6 +7,8 @@ PatchProfileEdit {
   padding: 1rem
   background-color: #fff
 
+  position: relative
+
   section {
     margin-bottom: 2rem
     header {
@@ -97,8 +99,9 @@ PatchProfileCrop {
   }
 
   canvas { 
-    margin: 0 auto 1rem 0
-    width: 100%
+    margin: 0 auto 1rem auto
+    max-height: 70vh
+    max-width: 100%
   }
 
   section.actions {
@@ -114,19 +117,20 @@ $PatchProfileImageSize {
 
 $LightBox {
   div.lightbox {
-    position: fixed;
-    left: 0px;
-    right: 0px;
-    top: 50px;
-    overflow: auto;
-    width: 780px;
-    max-width: 100%;
-    padding: 25px;
-    margin: auto;
-    z-index: 2;
-    background: #f5f5f5;
-    border: 1px solid #eee;
-    border-radius: .2em;
+    background: #f5f5f5
+
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+
+    overflow: auto
+    max-width: 100%
+    padding: 1rem
+    margin: auto
+    z-index: 2
+    border: 1px solid #eee
+    border-radius: .2em
   }
 
 }
