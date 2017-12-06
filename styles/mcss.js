@@ -27,6 +27,14 @@ PatchProfileEdit {
       }
     }
 
+    -description {
+      textarea { 
+        font-size: 1.2rem
+
+        padding: .5rem 
+      }
+    }
+
     -avatar {
       div.lightbox {
         div.lightbox__content {

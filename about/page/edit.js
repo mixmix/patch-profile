@@ -11,14 +11,16 @@ exports.gives = nest('about.page.edit')
 exports.needs = nest({
   'about.html.image': 'first',
   'about.obs.name': 'first',
+  'about.obs.description': 'first',
   'blob.sync.url': 'first',
   'message.async.publish': 'first',
   'sbot.async.addBlob': 'first'
 })
 
 const DEFAULT_LABELS = {
-  name: 'Name',
   avatar: 'Avatar',
+  name: 'Name',
+  description: 'Description',
   instructionCrop: 'Click and drag to crop your avatar',
   okay: 'Okay',
   save: 'Save',
@@ -31,10 +33,13 @@ exports.create = (api) => {
   })
 
   function editPage ({ feed, labels = {} }, callback) {
-    const { name, avatar, instructionCrop, okay, save, cancel } = Object.assign({}, DEFAULT_LABELS, labels)
+    const { avatar, name, description, instructionCrop, okay, save, cancel } = Object.assign({}, DEFAULT_LABELS, labels)
 
     const nameCurrent = api.about.obs.name(feed)
     const nameNew = Value()
+
+    const descCurrent = api.about.obs.description(feed)
+    const descNew = Value()
 
     var avatarCurrent = api.about.html.image(feed)
     const avatarNewData = Value()
@@ -49,12 +54,6 @@ exports.create = (api) => {
     var lightbox = hyperlightbox()
 
     return h('PatchProfileEdit', [
-      h('section -name', [
-        h('header', name),
-        computed(nameCurrent, name => {
-          return h('input', { value: name, 'ev-input': e => nameNew.set(e.target.value) })
-        })
-      ]),
       h('section -avatar', [
         lightbox,
         h('header', avatar),
@@ -63,6 +62,18 @@ exports.create = (api) => {
           avatarToDisplay,
           hyperfile.asDataURL(dataUrlCallback)
         ])
+      ]),
+      h('section -name', [
+        h('header', name),
+        computed(nameCurrent, name => {
+          return h('input', { value: name, 'ev-input': e => nameNew.set(e.target.value) })
+        })
+      ]),
+      h('section -description', [
+        h('header', description),
+        computed(descCurrent, desc => {
+          return h('textarea', { value: desc, 'ev-input': e => descNew.set(e.target.value) })
+        })
       ]),
       h('div.actions', [
         h('Button', { 'ev-click': () => callback(null, false) }, cancel),
@@ -80,12 +91,14 @@ exports.create = (api) => {
       const msg = {
         type: 'about',
         about: feed,
+        image: avatarNewData(),
         name: nameNew(),
-        image: avatarNewData()
+        description: descNew(),
       }
 
-      if (!msg.name) delete msg.name
       if (!msg.image || !msg.image.link) delete msg.image
+      if (!msg.name) delete msg.name
+      if (!msg.description) delete msg.description
 
       api.message.async.publish(msg, (err, data) => {
         if (err) return callback(err)
