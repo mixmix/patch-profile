@@ -134,7 +134,7 @@ exports.create = (api) => {
     function Crop (data, cb) {
       var img = h('img', {src: data})
 
-      var crop = h('div')
+      var crop = Value()
 
       waitForImg()
 
@@ -152,7 +152,7 @@ exports.create = (api) => {
         }
 
         var canvas = hypercrop(img)
-        crop = (
+        crop.set(
           h('PatchProfileCrop', [
             h('header', instructionCrop),
             canvas,
