@@ -1,6 +1,6 @@
 {
   "name": "patch-profile",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A simple profile editing page for patch-* family apps",
   "main": "index.js",
   "scripts": {
